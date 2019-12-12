@@ -1,7 +1,5 @@
 FROM ubuntu:latest
 
-ENV MXE_TARGETS=x86_64-w64-mingw32.static.posix
-
 WORKDIR /
 
 RUN apt-get update
@@ -37,5 +35,6 @@ RUN apt-get install -y --no-install-recommends \
     wget \
     xz-utils
 RUN git clone https://github.com/mxe/mxe
-RUN cd mxe && make MXE_PLUGIN_DIRS=plugins/gcc9 -j2 JOBS=2 qt5 boost gcc
+RUN cd mxe && make MXE_TARGETS=x86_64-w64-mingw32.static.posix MXE_PLUGIN_DIRS=plugins/gcc9 -j2 JOBS=2 qt5 boost gcc
 ENV PATH="/mxe/usr/bin:${PATH}"
+
